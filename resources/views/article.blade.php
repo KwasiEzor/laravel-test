@@ -6,7 +6,7 @@
         <h3 class="card-title">Titre N°{{ $post->id }} : {{ $post->title }}</h3>
         <div class="card-body">
             <p> {{ $post->content }}</p>
-            {{-- <img src={{ $post->image->path }} alt={{ $post->title }} width="200px"> --}}
+            <img src={{ Storage::url($post->image->path) }} alt={{ $post->title }} width="200px">
 
         </div>
         <div class="card-footer">

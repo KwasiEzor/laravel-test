@@ -7,7 +7,7 @@
         @endforeach
 
     @endif
-    <form action="{{ route('post.store') }}" method="post">
+    <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
         @csrf()
         <div class="form-group">
             <label for="title">Titre</label>
@@ -17,8 +17,9 @@
             <label for="content">Content</label>
             <textarea name="content" id="" cols="30" rows="10">
 
-                            </textarea>
+                        </textarea>
         </div>
+        <input type="file" name="avatar" id="avatar" accept="image/png, image/jpg,image/jpeg">
         <div class="form-group">
             <button type="submit">ADD POST</button>
         </div>

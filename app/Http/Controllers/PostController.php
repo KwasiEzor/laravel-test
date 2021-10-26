@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Image;
 use App\Models\Post;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -34,16 +36,29 @@ class PostController extends Controller
         return view('form');
     }
     public function store(Request $request)
+
     {
+    
         $request->validate([
             'title'=> 'required | max:255 | min:5 |unique:posts',
             'content'=>'required |min:5'
         ]);
-        Post::create([
+        $filename = time() .'.'.$request->avatar->extension();
+        //file uploaded
+        $path = $request->file('avatar')->storeAs('avatars',$filename,'public');
+        // post to store in DB
+        $post = Post::create([
             'title'=>$request->title,
             'content'=>$request->content
         ]);
-        // dd('Post créé !!!');
+
+        $image = new Image();
+        $image->path = $path;
+
+        $post->image()->save($image);
+        
+        dd('Post créé');
+        
     }
 
     public function register()
